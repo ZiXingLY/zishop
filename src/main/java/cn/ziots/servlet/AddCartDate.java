@@ -45,9 +45,11 @@ public class AddCartDate extends HttpServlet {
 		cart.setUid(uid);
 		
 		if(!dcart.hasGoods(cart)) {
+			cart.setPnumber(1);
 			dcart.addGoods(cart);
 		}else {
 			int number = dcart.getProductByPid(cart).getPnumber();
+//			System.out.println("当前商品数量："+number);
 			cart.setPnumber(++number);
 			dcart.updateGoods(cart);
 		}

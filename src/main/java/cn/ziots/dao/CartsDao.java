@@ -3,7 +3,9 @@ package cn.ziots.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Vector;
 
 import cn.ziots.entity.Carts;
 import cn.ziots.util.SqlUtil;
@@ -46,42 +48,49 @@ public class CartsDao {
 		try {
 			PreparedStatement ps = SqlUtil.getConnection().prepareStatement(sql);
 			ps.setInt(1, cart.getPnumber());
-			ps.setString(2, cart.getUid());
+			ps.setInt(2, cart.getId());
 			i = ps.executeUpdate();
+			System.out.println("执行结果:"+i);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return i;
 	}
-	public LinkedList<Carts> getGoodsByUid(Carts cart){
-		String sql = "select * from carts where u_id=?";
-		LinkedList<Carts> llcart = new LinkedList<Carts>();
+	public Vector<Carts> getGoodsByUid(Carts cart){
+		String sql = "select * from carts where user_id=?";
+		Vector<Carts> vcart = new Vector<Carts>();
+//		LinkedList<Carts> llcart = new LinkedList<Carts>();
 		try {
 			PreparedStatement ps = SqlUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, cart.getUid());
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				cart.setId(rs.getInt("c_id"));
-				cart.setPid(rs.getInt("product_id"));
-				cart.setPnumber(rs.getInt("product_number"));
-				cart.setUid(rs.getString("user_id"));
-				llcart.add(cart);
+				Carts ncart = new Carts();
+				ncart.setId(rs.getInt("c_id"));
+				ncart.setPid(rs.getInt("product_id"));
+				ncart.setPnumber(rs.getInt("product_number"));
+				ncart.setUid(rs.getString("user_id"));
+				System.out.println(ncart.getId()+" "+ncart.getPid()+" "+ncart.getUid()+" "+ncart.getPnumber());
+				vcart.addElement(ncart);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return llcart;
+		return vcart;
 	}
 	public Carts getProductByPid(Carts cart) {
 		String sql = "select * from carts where product_id=? && user_id=?";
 		try {
 			PreparedStatement ps = SqlUtil.getConnection().prepareStatement(sql);
+			System.out.println(cart.getPid());
+			System.out.println(cart.getUid());
 			ps.setInt(1, cart.getPid());
 			ps.setString(2, cart.getUid());
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
+				
 				cart.setId(rs.getInt("c_id"));
 				cart.setPid(rs.getInt("product_id"));
 				cart.setPnumber(rs.getInt("product_number"));

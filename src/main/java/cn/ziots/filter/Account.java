@@ -17,7 +17,8 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class Account
  */
-@WebFilter(urlPatterns="/account.jsp,/AddCartDate")
+
+@WebFilter(urlPatterns= {"/account.jsp","/AddCartDate"})
 public class Account implements Filter {
 
     /**

@@ -1,5 +1,5 @@
 <%@page import="java.util.Iterator"%>
-<%@page import="java.util.LinkedList"%>
+<%@page import="java.util.*"%>
 <%@page import="cn.ziots.dao.*"%>
 <%@ page language="java" contentType="text/html;"
     pageEncoding="utf-8"%>
@@ -33,12 +33,13 @@
 				ProductDao dpro = new ProductDao();
 				double price=0;
 				cart.setUid(uid);
-				LinkedList<Carts> llcart = dcart.getGoodsByUid(cart);
+				Vector<Carts> vcart = dcart.getGoodsByUid(cart);
 				//for(int i = 0;i<llcart.size();i++)
-				Iterator<Carts> it = llcart.iterator();
+				Iterator<Carts> it = vcart.iterator();
 				while(it.hasNext()){
 					cart = it.next();
 					pro.setId(cart.getPid());
+				//	System.out.println(cart.getId()+" "+cart.getPid()+" "+cart.getUid()+" "+cart.getPnumber());
 					pro = dpro.getProductByPid(pro);
 				price += pro.getPrice()*cart.getPnumber();
 			
@@ -62,7 +63,7 @@
 							<div class="price"><%= "RMB:"+pro.getPrice() %><span><%= "RMB:"+(int)(pro.getPrice()*0.8) %></span></div>
 							<label>Qty: </label> <input class="form-inline quantity" type="text" value="<%= cart.getPnumber() %>"><a href="#" class="btn btn-2 ">Update</a>
 							<hr>
-							<a href="deleteCart?id=<%=cart.getId() %>" class="btn btn-default pull-right">移除</a>
+							<a href="DeleteCart?cid=<%=cart.getId() %>" class="btn btn-default pull-right">移除</a>
 						</div>
 					</div>
 					<div class="clear"></div>
