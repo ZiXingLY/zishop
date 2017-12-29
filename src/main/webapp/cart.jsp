@@ -101,7 +101,7 @@
 								<td><%=0.8*price+100 %></td>
 							</tr>
 						</table>
-						<center><a href="#" class="btn btn-1">Checkout</a></center>
+						<center><a href="AddOrder" class="btn btn-1">Checkout</a></center>
 					</div>
 				</div>
 			</div>

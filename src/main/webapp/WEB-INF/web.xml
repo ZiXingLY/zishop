@@ -10,8 +10,20 @@
   	<description></description>
   	<servlet-class>cn.ziots.servlet.DeleteCart</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>AddOrder</servlet-name>
+  	<display-name>AddOrder</display-name>
+  	<description></description>
+  	<servlet-class>cn.ziots.servlet.AddOrder</servlet-class>
+  </servlet>
+  
   <servlet-mapping>
   	<servlet-name>DeleteCart</servlet-name>
   	<url-pattern>/DeleteCart</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AddOrder</servlet-name>
+  	<url-pattern>/AddOrder</url-pattern>
+  </servlet-mapping>
+
 </web-app>

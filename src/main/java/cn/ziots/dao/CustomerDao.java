@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import cn.ziots.entity.Carts;
 import cn.ziots.entity.Customer;
 import cn.ziots.util.SqlUtil;
 
@@ -53,5 +54,28 @@ public class CustomerDao extends Customer{
 		}
 		SqlUtil.closeAll();
 		return i;
+	}
+	public Customer getCustomerByCname(String name) {
+		String sql = "select * from customer where c_name=?";
+		Customer customer = new Customer();
+		try {
+			PreparedStatement ps = SqlUtil.getConnection().prepareStatement(sql);
+			
+			ps.setString(1, name);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				customer.setUsername(name);
+				customer.setPhone(rs.getString("c_phone"));
+				customer.setAddress(rs.getString("c_address"));
+				customer.setEmail(rs.getString("c_email"));
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return customer;
 	}
 }
