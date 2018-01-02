@@ -77,17 +77,21 @@ public class AddOrder extends HttpServlet {
 			Vector<Carts> vcart = dcart.getGoodsByUid(cart);
 			for(Carts vc:vcart) {
 				System.out.println("向量循环");
-				pro.setId(cart.getPid());
+				pro.setId(vc.getPid());
 				pro = dpro.getProductByPid(pro);
 				od.setP_id(vc.getPid());
 				od.setP_number(vc.getPnumber());
 				od.setP_price(pro.getPrice());
 				od.setOrder_id(order.getOid());
-			if(	dod.addOrderDetail(od)>0)
-				System.out.println("ddddd");
-			else {
-				System.out.println("添加失败");
-			}
+				if(	dod.addOrderDetail(od)>0){
+					cart.setId(vc.getId());
+					dod.deleteGoods(cart);
+					System.out.println("删除成功");
+				}
+				else {
+					System.out.println("添加失败");
+				}
+				response.sendRedirect("cart.jsp");
 			}
 			
 		}

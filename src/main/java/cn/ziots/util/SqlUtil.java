@@ -3,13 +3,13 @@ package cn.ziots.util;
 import java.sql.*;
 
 public class SqlUtil {
-	
-	static String url = "jdbc:mysql://localhost:3306/zishop";
-	static String user = "zi";
-	static String password = "hanghang";
-	static Connection conn = null;
-	static PreparedStatement pstmt = null;
-	static ResultSet rs = null;
+
+	private static String url = "jdbc:mysql://localhost:3306/zishop";
+	private static String user = "root";
+	private static String password = "hanghang";
+	private static Connection conn = null;
+	private static PreparedStatement pstmt = null;
+	private static ResultSet rs = null;
 
 	public static Connection getConnection() {
 		try {
